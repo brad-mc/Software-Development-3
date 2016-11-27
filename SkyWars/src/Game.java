@@ -8,8 +8,9 @@ public class Game {
 	static ArrayList<Point> moves = new ArrayList<Point>();
 	public static int  x = 0;
 	public static int y = 0;
+	public static MasterShip ms = new MasterShip();
 	public static void main (String[] args){
-		Home h = new Home();
+		
 		//h.squares[0][0].setText("Hey");
 		//JOptionPane.showMessageDialog(null, "Hi", "InfoBox: " + "test", JOptionPane.INFORMATION_MESSAGE);
 	   // h.squares[0][0].setText("Bye");
@@ -30,10 +31,13 @@ public class Game {
 			}
 		}
 		
-		MasterShip ms = new MasterShip();
+		//MasterShip ms = new MasterShip();
+		ms.setX(x);
+		ms.setY(y);
+		Home h = new Home(ms);
 		h.squares[x][y].setText(ms.getType());
 		
-		
+		/*
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask(){
 			@Override
@@ -55,6 +59,8 @@ public class Game {
 		y = ((int)moves.get(move).getY());
 		h.squares[x][y].setText(ms.getType());
 		*/
+		
+		
 	}
 
 }
