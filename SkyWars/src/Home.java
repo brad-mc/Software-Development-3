@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -58,9 +59,29 @@ public class Home extends JFrame implements ActionListener {
 		      {
 		    	  count = count + 1; 
 		    	  move = ms.MoveShip();
-					
+		    	  
 		    	  commandManager.executeCommand(new MoveCommand(ms.getX(), ms.getY(), ms, Home.this ));
 		    	  
+		    	  Thread t = new Thread(new Runnable() {
+		    	         public void run()
+		    	         {
+		    	        	 try {
+		   		    		  for(Ship sh: MasterShip.ships){
+		   		    			  TimeUnit.SECONDS.sleep(1);
+		   			    		  commandManager.executeCommand(new MoveCommand(sh.getX(), sh.getY(), sh, Home.this ));
+		   		    	  }
+		   					
+		   				} catch (InterruptedException e1) {
+		   					// TODO Auto-generated catch block
+		   					e1.printStackTrace();
+		   				}
+		    	         }
+		    	});
+		    	 t.start();
+		    	  
+			    	  
+					
+				
 					//squares[ms.getX()][ms.getY()].setText("");
 					//ms.setX(move.x);
 					//ms.setY(move.y);
@@ -78,11 +99,12 @@ public class Home extends JFrame implements ActionListener {
 			        	Ship ship;
 						ship = theFactory.createShip(n);
 						squares[0][0].setText(ship.getType());
-						move = ship.MoveShip();
-						squares[ship.getX()][ship.getY()].setText("");
-						ship.setX(move.x);
-						ship.setY(move.y);
-						squares[ship.getX()][ship.getY()].setText(ship.getType());
+						ms.registerObserver(ship);
+						//move = ship.MoveShip();
+						//squares[ship.getX()][ship.getY()].setText("");
+						//ship.setX(move.x);
+						//ship.setY(move.y);
+						//squares[ship.getX()][ship.getY()].setText(ship.getType());
 						count = 0;
 					}
 		        
@@ -103,7 +125,7 @@ public class Home extends JFrame implements ActionListener {
 	      public void actionPerformed(ActionEvent e)
 	      {
 	    	 
-	    	  ms.changeMode("Offensive!");
+	    	  ms.changeMode("Offensive");
 	      }
 	    });
 		btnDefensive = new JButton();

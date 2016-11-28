@@ -4,6 +4,16 @@ import java.util.Random;
 
 public abstract class Ship implements ShipObserver {
 	
+	private String enemyMode;
+	
+	public String getEnemyMode() {
+		return enemyMode;
+	}
+
+	public void setEnemyMode(String enemyMode) {
+		this.enemyMode = enemyMode;
+	}
+
 	private int x;
 	
 	public int getX() {

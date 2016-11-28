@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class MasterShip extends Ship implements Observable {
-	private ArrayList<Ship> ships = new  ArrayList<Ship>();
+	public static ArrayList<Ship> ships = new  ArrayList<Ship>();
 	private String mode;
 	private String type;
 	public String getType() {
@@ -48,7 +48,7 @@ public class MasterShip extends Ship implements Observable {
 
 	public MasterShip()
 	{
-		setType("Master Ship");
+		setType("Master Ship.");
 	}
 	
 	public void registerObserver(Ship s){

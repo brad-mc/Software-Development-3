@@ -34,6 +34,7 @@ public class Game {
 		//MasterShip ms = new MasterShip();
 		ms.setX(x);
 		ms.setY(y);
+		ms.setMode("Defensive");
 		Home h = new Home(ms);
 		h.squares[x][y].setText(ms.getType());
 		
