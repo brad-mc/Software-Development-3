@@ -19,7 +19,9 @@ import javax.swing.JLabel;
 public class Home extends JFrame implements ActionListener {
 	
 	ShipFactory theFactory;
-	static ArrayList<Point> moves = new ArrayList<Point>();
+	int count = 0;
+	static Point move = new Point();
+	private CommandManager commandManager;
 	//public static int  x = 0;
 	//public static int y = 0;
 	public JButton btnMove,btnUndo,btnOffensive,btnDefensive;
@@ -29,7 +31,7 @@ public class Home extends JFrame implements ActionListener {
 	
 	public Home(MasterShip ms){
 		
-		
+		commandManager = new CommandManager();
 		 JPanel jsp1 = new JPanel();
 	     JPanel jsp2 = new JPanel();
 	     JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, 
@@ -54,22 +56,65 @@ public class Home extends JFrame implements ActionListener {
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
-		    	  moves = NeighbourNodes.PossibleMoves(ms.getX(), ms.getY());
-					int move;
-					move = rand.nextInt(moves.size());
-					squares[ms.getX()][ms.getY()].setText("");
-					ms.setX(((int)moves.get(move).getX()));
-					ms.setY(((int)moves.get(move).getY()));
-					squares[ms.getX()][ms.getY()].setText(ms.getType());
-					BattleShooter bs = new BattleShooter();
-					ms.registerObserver(bs);
-					ms.changeMode("Attack!");
+		    	  count = count + 1; 
+		    	  move = ms.MoveShip();
+					
+		    	  commandManager.executeCommand(new MoveCommand(ms.getX(), ms.getY(), ms, Home.this ));
+		    	  
+					//squares[ms.getX()][ms.getY()].setText("");
+					//ms.setX(move.x);
+					//ms.setY(move.y);
+					//squares[ms.getX()][ms.getY()].setText(ms.getType());
+					//BattleShooter bs = new BattleShooter();
+					//ms.registerObserver(bs);
+					//ms.changeMode("Attack!");
+					
+					if (count == 3){
+						setTheFactory(new ShipFactory());
+			        	Random rand = new Random();
+
+			        	int  n = rand.nextInt(3) + 1;
+			        	
+			        	Ship ship;
+						ship = theFactory.createShip(n);
+						squares[0][0].setText(ship.getType());
+						move = ship.MoveShip();
+						squares[ship.getX()][ship.getY()].setText("");
+						ship.setX(move.x);
+						ship.setY(move.y);
+						squares[ship.getX()][ship.getY()].setText(ship.getType());
+						count = 0;
+					}
 		        
 		      }
 		    });
 		btnUndo = new JButton();
+		btnUndo.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	  commandManager.undo();
+	    	  
+	      }
+	    });
 		btnOffensive = new JButton();
+		btnOffensive.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    	 
+	    	  ms.changeMode("Offensive!");
+	      }
+	    });
 		btnDefensive = new JButton();
+		btnDefensive.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	    
+	    	  ms.changeMode("Defensive");
+	      }
+	    });
 		btnMove.setText("Move");
 		btnUndo.setText("Undo");
 		btnOffensive.setText("Offensive");
@@ -152,5 +197,6 @@ public class Home extends JFrame implements ActionListener {
 	}
 
 }
+
 
 

@@ -2,6 +2,7 @@ import javax.swing.JOptionPane;
 
 public class BattleShooter extends Ship implements ShipObserver {
 	private String enemyMode;
+	
 	public BattleShooter()
 	{
 		setType("Battle Shooter");

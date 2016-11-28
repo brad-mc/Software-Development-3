@@ -1,24 +1,26 @@
+import java.util.Stack;
 
 public class CommandManager {
 	
-	private Command lastCommand;
+	private Stack<Command> undos = new Stack<Command>();
 	
 	public CommandManager(){}
 	
 	public void executeCommand(Command c){
 		
 		c.execute();
-		lastCommand = c;
+		undos.push(c);
 	}
 	
 	public boolean isUndoAvalible(){
-		return lastCommand !=null;
+		return !undos.empty();
 	}
 	
 	public void undo(){
-		assert(lastCommand != null);
-		lastCommand.undo();
-		lastCommand = null;
+		assert(!undos.empty());
+		Command command = undos.pop();
+        command.undo();
+       
 	}
 
 }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class MasterShip implements Observable {
+public class MasterShip extends Ship implements Observable {
 	private ArrayList<Ship> ships = new  ArrayList<Ship>();
 	private String mode;
 	private String type;
@@ -61,6 +61,11 @@ public class MasterShip implements Observable {
 		for(Ship s: this.ships){
 			s.update(getMode());
 		}
+	}
+	
+	@Override
+	public void update(String s) {
+	    throw new UnsupportedOperationException();
 	}
 
 }
