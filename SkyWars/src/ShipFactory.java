@@ -1,6 +1,6 @@
 
 public class ShipFactory {
-	
+	//Factory for creating ship 
 	public Ship createShip(int type){
 		Ship ship = null;
 		if (type == 1){

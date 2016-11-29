@@ -9,15 +9,15 @@ public class Game {
 	public static int  x = 0;
 	public static int y = 0;
 	public static MasterShip ms = new MasterShip();
+	
+	
 	public static void main (String[] args){
 		
-		//h.squares[0][0].setText("Hey");
-		//JOptionPane.showMessageDialog(null, "Hi", "InfoBox: " + "test", JOptionPane.INFORMATION_MESSAGE);
-	   // h.squares[0][0].setText("Bye");
+	    //Creates random number generator 
 		Random rand = new Random();
 		
-		
 		boolean same = true;
+		//Loop to spawn Master Ship cannot be spawned at 00
 		while(same ==true){
 			x = rand.nextInt(4);
 			y = rand.nextInt(4);
@@ -31,35 +31,17 @@ public class Game {
 			}
 		}
 		
-		//MasterShip ms = new MasterShip();
+		//Sets the coordinates of the master ship
 		ms.setX(x);
 		ms.setY(y);
+		//Sets the default mode of the master ship
 		ms.setMode("Defensive");
+		//Creates a new instance of the GUI
 		Home h = new Home(ms);
+		//Moves the Master Ship to spawn position
 		h.squares[x][y].setText(ms.getType());
 		
-		/*
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask(){
-			@Override
-		    public void run() {
-				moves = NeighbourNodes.PossibleMoves(x, y);
-				int move;
-				move = rand.nextInt(moves.size());
-				h.squares[x][y].setText("");
-				x = ((int)moves.get(move).getX());
-				y = ((int)moves.get(move).getY());
-				h.squares[x][y].setText(ms.getType());
-			}
-		},1000,500);
-		moves = NeighbourNodes.PossibleMoves(x, y);
-		/*
-		int move;
-		move = rand.nextInt(moves.size() -1);
-		x = ((int)moves.get(move).getX());
-		y = ((int)moves.get(move).getY());
-		h.squares[x][y].setText(ms.getType());
-		*/
+		
 		
 		
 	}

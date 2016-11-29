@@ -4,13 +4,14 @@ public class BattleStar extends Ship implements ShipObserver {
 	
 	
 	public BattleStar()
-	{
-		setType("Battle Star.");
+	{   //Sets the type of ship
+		setType("Battle Star");
 	}
 	
 	public void update (String mode){
+		//update method uses to store the master ships mode
 		this.setEnemyMode(mode);
-		//JOptionPane.showMessageDialog(null, this.enemyMode, "InfoBox: " + "MODE", JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 
 }

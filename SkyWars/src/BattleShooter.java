@@ -4,13 +4,14 @@ public class BattleShooter extends Ship implements ShipObserver {
 
 	
 	public BattleShooter()
-	{
-		setType("Battle Shooter.");
+	{    //Sets the type of ship
+		setType("Battle Shooter");
 	}
 	
 	public void update (String mode){
+		//update method uses to store the master ships mode
 		this.setEnemyMode(mode);
-		//JOptionPane.showMessageDialog(null, this.enemyMode, "InfoBox: " + "MODE", JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 
 }
